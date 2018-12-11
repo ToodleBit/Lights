@@ -11,12 +11,20 @@ ToodleBit Traffic Lights has been designed for use in education, particularly th
 ## Code Example
 ```JavaScript
 basic.forever(function () {
-    ToodleBit.forward()
-    if (ToodleBit.toodlebit_crash(DigitalPin.P1) == 0) {
-        ToodleBit.back()
-        basic.pause(500)
-        ToodleBit.turnleft()
-        basic.pause(500)
+    if (run == true) {
+        custom.set_redlight(AnalogPin.P0, MyOptions.On)
+        basic.pause(1000)
+        custom.set_amberlight(AnalogPin.P1, MyOptions.On)
+        basic.pause(1000)
+        custom.set_redlight(AnalogPin.P0, MyOptions.Off)
+        custom.set_amberlight(AnalogPin.P1, MyOptions.Off)
+        custom.set_greenlight(AnalogPin.P2, MyOptions.On)
+        basic.pause(1000)
+        custom.set_greenlight(AnalogPin.P2, MyOptions.Off)
+    } else {
+        custom.set_redlight(AnalogPin.P0, MyOptions.On)
+        basic.pause(5000)
+        run = true
     }
 })
 ```
