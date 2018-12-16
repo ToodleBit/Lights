@@ -9,6 +9,13 @@ enum MyOptions {
     //% block="off"
     Off
 }
+
+enum MyScreenOptions {
+    //% block="yes"
+    Yes,
+    //% block="no"
+    No
+}
 /**
  * Custom blocks
  */
@@ -16,8 +23,9 @@ enum MyOptions {
 namespace ToodleLights {
 
 
-			let setpin = DigitalPin.P0
-			
+    let setpin = DigitalPin.P0
+    let screenoutput = 1
+
     /**
     * Choose red light on or off
     * @param pin describe parameter here, eg: AnalogPin.P0
@@ -45,9 +53,11 @@ namespace ToodleLights {
         if (myoption == 0) {
 
             pins.digitalWritePin(setpin, 1)
-            led.plot(2, 0)
-        } else { pins.digitalWritePin(setpin, 0)
-            led.unplot(2, 0) }
+            if (screenoutput == 1) { led.plot(2, 0) }
+        } else {
+            pins.digitalWritePin(setpin, 0)
+            if (screenoutput == 1) { led.unplot(2, 0) }
+        }
 
 
     }
@@ -79,10 +89,12 @@ namespace ToodleLights {
         if (myoption == 0) {
 
             pins.digitalWritePin(setpin, 1)
-            led.plot(2, 2)
+            if (screenoutput == 1) { led.plot(2, 2) }
 
-        } else { pins.digitalWritePin(setpin, 0)
-            led.unplot(2, 2) }
+        } else {
+            pins.digitalWritePin(setpin, 0)
+            if (screenoutput == 1) { led.unplot(2, 2) }
+        }
 
 
     }
@@ -114,12 +126,24 @@ namespace ToodleLights {
         if (myoption == 0) {
 
             pins.digitalWritePin(setpin, 1)
-            led.plot(2, 4)
+            if (screenoutput == 1) { led.plot(2, 4) }
 
-        } else { pins.digitalWritePin(setpin, 0)
-            led.unplot(2, 4) }
+        } else {
+            pins.digitalWritePin(setpin, 0)
+            if (screenoutput == 1) { led.unplot(2, 4) }
+        }
 
 
     }
 
-}
+    /**
+* Show traffic light output on MicroBit screen
+* @param cond either yes or no, eg: yes, no
+*/
+    //% weight=9
+    //% blockId=toodlebit_screen	block="Show on Microbit screen %cond"
+    export function set_screenoptions(myscreen: MyScreenOptions): void {
+        // Add code here
+        if (myscreen == 1) { screenoutput = 0 } else { screenoutput = 1 }
+    }
+} 
